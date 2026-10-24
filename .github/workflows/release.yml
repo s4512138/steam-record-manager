@@ -1,0 +1,102 @@
+name: Build desktop release
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish the preview Release after all three platform builds pass
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: desktop-preview-release
+  cancel-in-progress: false
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Build and run Windows regression tests
+        shell: pwsh
+        run: .\scripts\test.ps1
+      - name: Package the executable and documentation
+        shell: pwsh
+        run: .\scripts\package-windows.ps1
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: windows-x64
+          path: artifacts/release/SteamRecordManager-windows-x64.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  macos:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: macos-15
+            arch: arm64
+          - runner: macos-15-intel
+            arch: x64
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Compile native app, verify ad-hoc signature and run synthetic/UI initialization tests
+        run: bash scripts/build-macos.sh
+      - name: Package macOS app
+        env:
+          RELEASE_ARCH: ${{ matrix.arch }}
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts/release
+          stage="$(mktemp -d)"
+          ditto 'dist/Steam Record Manager.app' "$stage/Steam Record Manager.app"
+          cp docs/MACOS_PREVIEW.md "$stage/README.md"
+          cp LICENSE "$stage/LICENSE"
+          ditto -c -k --sequesterRsrc "$stage" "artifacts/release/SteamRecordManager-macos-${RELEASE_ARCH}-preview.zip"
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: macos-${{ matrix.arch }}
+          path: artifacts/release/*.zip
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    if: inputs.publish && github.ref == 'refs/heads/main'
+    needs: [windows, macos]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          path: release-assets
+          merge-multiple: true
+      - name: Validate assets and publish preview
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_COMMIT: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          cd release-assets
+          test "$(find . -maxdepth 1 -name '*.zip' | wc -l)" -eq 3
+          sha256sum *.zip > SHA256SUMS.txt
+          gh release create v1.4.0-preview.1 *.zip SHA256SUMS.txt \
+            --target "$RELEASE_COMMIT" --prerelease \
+            --title '1.4.0 Preview — Windows and macOS apps' \
+            --notes-file ../docs/RELEASE_NOTES_1.4.0.md
