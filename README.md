@@ -2,6 +2,8 @@
 
 [繁體中文](README.zh-TW.md) · English
 
+*Code generated with GPT-6.1 Sol*
+
 A small, local desktop application for inspecting and managing the disk space used by Steam Game Recording. Independent community software; not affiliated with Valve.
 
 **1.4.0 Preview — Windows and a new native macOS preview.** Index editing is Windows-only and remains beta; Steam reloading an edited index has not been validated end to end. Fully exit Steam before cleanup on either platform.
@@ -30,8 +32,6 @@ Windows requires .NET Framework 4.8, normally present on current Windows install
 | CSV reports and read-only report CLI | Yes | Not implemented |
 
 The macOS app is a new implementation, not a repackaged Windows executable. It is not yet feature-equivalent. It retains Steam indexes and may leave stale Steam library entries after a session is moved to Trash.
-
-*Coded with GPT-6.1 Sol*
 
 ## Windows features
 
