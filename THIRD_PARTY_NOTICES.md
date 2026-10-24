@@ -2,6 +2,8 @@
 
 The repository ships no downloaded third-party libraries, Valve binaries, Steam indexes, Steam schema files, game artwork or user recordings. Runtime references are the Windows .NET Framework assemblies already installed on the machine; their licenses are provided by Microsoft.
 
+The macOS preview uses the operating system's AppKit, Foundation and CryptoKit frameworks and Swift's system runtime. Their licenses are provided by Apple. No downloaded UI toolkit or Swift package dependency is bundled. The app's ad-hoc signature is not an Apple Developer ID signature or notarization.
+
 Format documentation used as reference:
 
 - [SteamAppInfo](https://github.com/xPaw/SteamAppInfo), an MIT-licensed project documenting Steam's appinfo versions and binary structure. The appinfo reader here is an independent, name-only implementation; the upstream parser and ValveKeyValue library are not bundled.

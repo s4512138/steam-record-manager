@@ -5,3 +5,6 @@
 *.yml text eol=lf
 *.json text eol=lf
 *.manifest text eol=lf
+*.swift text eol=lf
+*.plist text eol=lf
+*.sh text eol=lf

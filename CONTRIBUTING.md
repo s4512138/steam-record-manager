@@ -2,6 +2,8 @@
 
 Use Windows 10/11, .NET Framework 4.8 and PowerShell. No NuGet restore is needed.
 
+For the native macOS preview, use macOS 13+ with Xcode Command Line Tools and run `bash scripts/build-macos.sh`. It compiles for the local architecture, runs synthetic core/appinfo tests and window-initialization checks, and verifies the ad-hoc signature. Do not add index-writing or permanent-deletion behavior to the Mac preview without a separately reviewed design. Preserve its advertised feature limits.
+
 ```powershell
 .\scripts\build.ps1
 .\scripts\test.ps1

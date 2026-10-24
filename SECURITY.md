@@ -2,7 +2,7 @@
 
 ## Supported version
 
-Only the latest release receives fixes. For this initial public source package, that is 1.3.1. Index editing is beta and not yet verified by a live Steam reload test.
+Only the latest release receives fixes. The current release line is 1.4.0-preview.1. Windows index editing remains beta and is not yet verified by a live Steam reload test. The new macOS preview does not edit indexes and is not Developer ID signed or notarized; see docs/MACOS_PREVIEW.md for its narrower validation scope.
 
 ## Reporting a vulnerability
 

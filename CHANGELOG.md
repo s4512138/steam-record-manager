@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.4.0-preview.1 — 2026-10-24
+
+- Added a native AppKit macOS preview: local scan/name lookup, three languages, filtering, protected items, retention suggestions and confirmed native Trash operations.
+- Kept macOS indexes unchanged; no permanent-delete or CSV feature is advertised for macOS.
+- Added Windows/Apple Silicon/Intel release packaging with synthetic tests, native UI initialization checks, pinned artifact actions and SHA-256 checksums.
+- Moved end-user download/run instructions above developer build instructions, with explicit signing, Gatekeeper and platform-parity limits.
+
 ## 1.3.1 — 2026-10-24
 
 - Prepared a source-only public repository with English/Traditional Chinese documentation, MIT license, privacy/security notes, Windows CI and contribution templates.
