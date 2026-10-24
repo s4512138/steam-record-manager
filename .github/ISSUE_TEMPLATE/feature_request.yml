@@ -1,0 +1,15 @@
+name: Feature request
+description: Suggest an improvement.
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or workflow
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior and safety considerations
+    validations:
+      required: true
