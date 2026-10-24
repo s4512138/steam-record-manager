@@ -385,7 +385,9 @@ final class ManagerApp: NSObject, NSApplicationDelegate, NSWindowDelegate, NSTab
 enum CoreTests {
     static func check(_ value: @autoclosure () -> Bool, _ message: String) throws { if !value() { throw ManagerError("FAIL: " + message) } }
     static func run() throws {
-        let root = FileManager.default.temporaryDirectory.resolvingSymlinksInPath().appendingPathComponent("srm-mac-test-" + UUID().uuidString)
+        // macOS aliases /var to /private/var; keep fixtures in the checkout so
+        // the production policy refusing linked ancestors is exercised unchanged.
+        let root = URL(fileURLWithPath: FileManager.default.currentDirectoryPath, isDirectory: true).appendingPathComponent("srm-mac-test-" + UUID().uuidString)
         for path in ["video", "clips"] { try FileManager.default.createDirectory(at: root.appendingPathComponent(path), withIntermediateDirectories: true) }
         let session = root.appendingPathComponent("video/bg_123_20200101_120000")
         try FileManager.default.createDirectory(at: session, withIntermediateDirectories: false)
