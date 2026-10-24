@@ -8,9 +8,7 @@
 
 **目前版本 1.4.0 預覽版，提供 Windows 與新的原生 macOS 預覽版。** 索引修改僅 Windows 提供，仍屬測試版、預設不啟用，尚未完成 Steam 重新載入驗證。兩平台清理前都須完全退出 Steam。
 
-## 直接下載執行，不必自行編譯
-
-到 [Releases](https://github.com/s4512138/steam-record-manager/releases) 下載對應的應用檔案，**不要選 GitHub 自動產生的 Source code 壓縮檔**：
+## 安裝使用
 
 | 電腦 | 下載 | 解壓縮後 |
 | --- | --- | --- |
