@@ -395,9 +395,14 @@ enum CoreTests {
         let item = try RecordingCore.inspect(session, names: ["123": "測試遊戲"])
         try check(item.bytes == 4 && item.game == "測試遊戲", "size and Unicode game name")
         try RecordingCore.validate(item, root: root, protected: [])
+        let scan = try RecordingCore.scan(root)
+        try check(scan.sessions.count == 1 && scan.skipped.isEmpty, "recording-root scan")
         try check(RecordingCore.plan([item], protected: [], limit: 0, days: 30).contains(item.id), "age rule")
         try check(RecordingCore.plan([item], protected: [item.id], limit: 0, days: 30).isEmpty, "protected rule")
         try check(RecordingCore.plan([item], protected: [], limit: 0, days: 0).isEmpty, "disabled rules")
+        let clip = Session(url: root.appendingPathComponent("clips/clip_123_20200101_120000"), appID: "123", game: "Synthetic clip", kind: .clip, bytes: 100_000, modified: old, fingerprint: "fixture")
+        let manual = Session(url: root.appendingPathComponent("video/fg_123_20200101_120000"), appID: "123", game: "Synthetic manual", kind: .manual, bytes: 100_000, modified: old, fingerprint: "fixture")
+        try check(RecordingCore.plan([item, clip, manual], protected: [], limit: 1 / RecordingCore.gib, days: 0) == [item.id], "quota excludes clips and manual recordings")
         try check(!RecordingCore.inside(URL(fileURLWithPath: root.path + "-other/file"), root: root), "path boundary")
         try Data("changed".utf8).write(to: file)
         var rejected = false; do { try RecordingCore.validate(item, root: root, protected: []) } catch { rejected = true }; try check(rejected, "changed recording rejected")
@@ -438,5 +443,5 @@ if CommandLine.arguments.contains("--ui-smoke-test") {
     let main = NSMenu(), appMenu = NSMenu(), item = NSMenuItem()
     appMenu.addItem(withTitle: "Quit Steam Record Manager", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
     item.submenu = appMenu; main.addItem(item); app.mainMenu = main
-    app.run()
+    withExtendedLifetime(delegate) { app.run() }
 }
