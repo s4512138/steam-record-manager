@@ -31,4 +31,8 @@ Inspect the staged files before committing. Add the remote URL shown by GitHub f
 
 Build the release binary, run tests and review the index-beta warning. A release zip should contain the application, license and user documentation, not test executables, real reports or metadata. Generate a SHA-256 checksum for a binary you actually publish. The supplied build is unsigned, and checksum matching only verifies that a file matches the one hashed; it does not establish safety.
 
-The workflow builds/tests only. It has no automatic release, upload or publishing step. GitHub itself hosts the public repository and executes CI after you push; this is separate from the application's offline runtime behavior.
+The regular CI workflow builds/tests only. The separate `Build desktop release` workflow is manually dispatched, defaults to build-only, and can publish the `v1.4.0-preview.1` prerelease when its `publish` option is explicitly selected on `main`. All three platform builds must succeed first. The final job uploads Windows x64, macOS arm64 and macOS Intel app archives plus `SHA256SUMS.txt`; it is the only job granted repository write permission. Re-running publication for an existing tag fails instead of silently replacing assets.
+
+macOS builds are ad-hoc signed, not Apple Developer ID signed or notarized. Publishing these preview files does not certify that Gatekeeper will allow downloaded launches. See [MACOS_PREVIEW.md](MACOS_PREVIEW.md) and keep this limitation visible in release notes. Never add signing private keys to source, artifacts or issue attachments.
+
+GitHub itself hosts the repository and executes these workflows after an authorized action; this is separate from the native applications' offline runtime behavior.

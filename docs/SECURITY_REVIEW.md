@@ -60,3 +60,11 @@ Tests operate on fresh synthetic temporary data. They do not delete or rewrite r
 ## Public-release recommendation
 
 Publish source with the beta limitations visible; do not describe the tool as “certified secure” or promise zero data loss. Keep index features off by default. Review this document after behavior changes. Follow [SECURITY.md](../SECURITY.md) for vulnerability handling.
+
+## 1.4.0 preview additions
+
+The macOS implementation is new and has a narrower feature set. Static review checks its source-root containment, symbolic-link rejection, regular-file requirement, checked file-size sums, JSON-framed metadata fingerprints, protected/recent/changed session refusal and native Trash operation. It contains no shell execution, network client, permanent-deletion routine or index writer. It is not covered by the earlier Windows-only review as though it were the same executable. See [macOS preview scope](MACOS_PREVIEW.md).
+
+Mac builds require native Apple Silicon/Intel compilation, synthetic core/appinfo tests, AppKit control initialization and ad-hoc signature verification before the release job can publish. These do not establish real-library cleanup/recovery behavior, manual visual correctness or a Gatekeeper-approved downloaded launch. No Developer ID certificate or notarization credential is present.
+
+The manually dispatched release workflow defaults to build-only. Publishing requires explicitly selecting `publish`, uses only the `main` branch, waits for all three platform builds and grants repository write permission only to the final publishing job. Its GitHub token is provided by GitHub Actions for that job; it is not stored in source or assets. All archive checksums are computed from the downloaded build outputs. The native applications remain offline at runtime.
