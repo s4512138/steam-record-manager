@@ -8,9 +8,7 @@ A small, local desktop application for inspecting and managing the disk space us
 
 **1.4.0 Preview — Windows and a new native macOS preview.** Index editing is Windows-only and remains beta; Steam reloading an edited index has not been validated end to end. Fully exit Steam before cleanup on either platform.
 
-## Download and run — no compiler required
-
-Open [Releases](https://github.com/s4512138/steam-record-manager/releases) and download the asset for your computer, **not** GitHub's automatically generated “Source code” archive:
+## Installation
 
 | Computer | Release asset | After extracting |
 | --- | --- | --- |
