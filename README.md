@@ -6,6 +6,8 @@ A small, local Windows application for inspecting and managing the disk space us
 
 **Version 1.3.1 — index editing remains beta.** File-level regression tests pass, but Steam reloading an edited index has not been validated end to end. Index synchronization is off by default. Fully exit Steam before deleting recordings or changing indexes.
 
+*Coded with GPT-6.1 Sol*
+
 ## Features
 
 - Traditional Chinese, Simplified Chinese and English, with a remembered language preference.
