@@ -2,6 +2,8 @@
 
 繁體中文 · [English](README.md)
 
+*程式由 GPT-6.1 Sol 生成*
+
 桌面工具，用來查看及管理 Steam 遊戲錄影佔用的空間。這是獨立社群工具，與 Valve 沒有隸屬關係。
 
 **目前版本 1.4.0 預覽版，提供 Windows 與新的原生 macOS 預覽版。** 索引修改僅 Windows 提供，仍屬測試版、預設不啟用，尚未完成 Steam 重新載入驗證。兩平台清理前都須完全退出 Steam。
@@ -30,8 +32,6 @@ Windows 需要 .NET Framework 4.8，目前的 Windows 安裝通常已具備。ma
 | CSV 報表與報表命令列 | 有 | 尚未提供 |
 
 macOS 是新寫的原生程式，不是 Windows 執行檔改名。功能尚未完全一致；移至垃圾桶後，Steam 可能仍顯示原有索引項目。
-
-*程式由 GPT-6.1 Sol 生成*
 
 ## Windows 功能
 
