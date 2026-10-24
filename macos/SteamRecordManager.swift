@@ -51,6 +51,7 @@ enum RecordingCore {
             if attrs[.type] as? FileAttributeType == .typeSymbolicLink {
                 throw ManagerError(tr("不支援符號連結：", "不支持符号链接：", "Symbolic links are not supported: ") + current.path)
             }
+            if current.path == "/" { break }
             let parent = current.deletingLastPathComponent()
             if parent.path == current.path { break }
             current = parent
