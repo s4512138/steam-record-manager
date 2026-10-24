@@ -224,7 +224,7 @@ public class MainForm:Form {
     public MainForm(string preferencesDirectory=null,bool autoScan=true) {
         string preferences=preferencesDirectory??System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),"SteamRecordManager");
         settings=System.IO.Path.Combine(preferences,"protected.txt");languageFile=System.IO.Path.Combine(preferences,"language.txt");L.Load(languageFile);
-        Text=L.T("Steam Record 空間管理員 1.3.1"); Width=1320; Height=840; MinimumSize=new Size(1280,720);
+        Text=L.T("Steam Record 空間管理員 1.4.0-preview.1"); Width=1320; Height=840; MinimumSize=new Size(1280,720);
         Font=new Font("Microsoft JhengHei UI",10); BackColor=Color.FromArgb(24,31,41); ForeColor=Color.White;
         try { if(File.Exists(settings)) pins=new HashSet<string>(File.ReadAllLines(settings),StringComparer.OrdinalIgnoreCase); } catch {}
         var layout=new TableLayoutPanel {Dock=DockStyle.Fill,ColumnCount=1,RowCount=8,Padding=new Padding(20)};
@@ -281,7 +281,7 @@ public class MainForm:Form {
             foreach(int index in new[]{2,1,0,2}){
                 form.language.SelectedIndex=index;
                 if(L.Index!=index || form.grid.Columns[1].HeaderText!=L.T("遊戲") || form.grid.Rows[0].Cells[2].Value.ToString()!=L.T("背景錄影"))throw new Exception("Language did not update grid.");
-                if(!form.actions.Any(b=>b.Text==L.T("預覽清理建議")) || !form.Text.EndsWith("1.3.1"))throw new Exception("Language did not update controls.");
+                if(!form.actions.Any(b=>b.Text==L.T("預覽清理建議")) || !form.Text.EndsWith("1.4.0-preview.1"))throw new Exception("Language did not update controls.");
                 if(!form.selected.Contains(item.Path) || !Convert.ToBoolean(form.grid.Rows[0].Cells[0].Value) || form.search.Text!="Fixture" || form.cap.Value!=321 || form.days.Value!=45 || item.Kind!="背景錄影")throw new Exception("Language switch changed user state.");
                 if(Core.Plan(form.rows,0,30,DateTime.UtcNow).Count!=1)throw new Exception("Language switch changed cleanup rules.");
                 if(L.Error("未知資料夾命名：test-folder")!=L.T("未知資料夾命名：")+"test-folder")throw new Exception("Error localization failed.");

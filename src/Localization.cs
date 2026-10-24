@@ -86,7 +86,7 @@ public static class L {
         Add("索引備份與操作紀錄：","索引备份与操作记录：","Index backup and operation log: ");
         Add("目錄：{0}\r\n{1} 個完整工作階段，{2:N2} GiB\r\n\r\n{3}\r\n\r\n{4}\r\n\r\n","目录：{0}\r\n{1} 个完整会话，{2:N2} GiB\r\n\r\n{3}\r\n\r\n{4}\r\n\r\n","Folder: {0}\r\n{1} complete sessions, {2:N2} GiB\r\n\r\n{3}\r\n\r\n{4}\r\n\r\n");
         Add("Steam 可能保留舊的清單項目；本工具不修改 gamerecording.pb 與 timelines。","Steam 可能保留旧的列表项目；本工具不修改 gamerecording.pb 与 timelines。","Steam may retain old library entries. This tool does not modify gamerecording.pb or timelines.");
-        Add("Steam Record 空間管理員 1.3.1","Steam Record 空间管理器 1.3.1","Steam Record Manager 1.3.1");
+        Add("Steam Record 空間管理員 1.4.0-preview.1","Steam Record 空间管理器 1.4.0-preview.1","Steam Record Manager 1.4.0-preview.1");
         Add("只支援本機磁碟的錄影資料夾。","只支持本地磁盘的录像文件夹。","Only recording folders on local drives are supported.");
         Add("報表不可儲存在錄影根目錄內。","报告不可保存在录像根目录内。","Reports cannot be saved inside the recording root.");
         Add("請先完成掃描再匯出報表。","请先完成扫描再导出报告。","Complete a scan before exporting a report.");
